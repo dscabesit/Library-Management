@@ -4,7 +4,7 @@
 #include<stdio.h>
 #include<string.h>
 
-using namespace std;
+using namespace std;			// It is used to declare all the input/output operation as std.
 /*   CLASS USED */
 
 class Book
