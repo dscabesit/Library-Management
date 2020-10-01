@@ -1,10 +1,10 @@
-/* HEADER FILES */
-
-#include<fstream.h>
-#include<conio.h>
+#include<iostream>
+#include<fstream>                         // The header file names are diff now you can see
+#include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
 
+using namespace std;			// It is used to declare all the input/output operation as std
 /*   CLASS USED */
 
 class Book
@@ -21,13 +21,13 @@ public:
 void Book::CreateBook()
 {
 cout<<"\n Enter Book Reference Number..";
-gets(refno);
+cin>>refno;                                             //As 'gets' function is removed from C++ std lib, I used 'cin'
 cout<<"\n Enter Book Name..";
-gets(bookname);
+cin>>bookname;                                           //As 'gets' function is removed from C++ std lib, I used 'cin'
 cout<<"\n Enter Author's name..";
-gets(author);
+cin>>author;                                             //As 'gets' function is removed from C++ std lib, I used 'cin'
 cout<<"\n Enter Category..";
-gets(category);
+cin>>category;                                           //As 'gets' function is removed from C++ std lib, I used 'cin'
 }
 
 void Book::ShowBook()
@@ -53,9 +53,9 @@ public:
 void Person::Create()
 {
     cout<<"\n Enter Card No...";
-    gets(cardno);
+    cin>>cardno;
     cout<<"\n Enter Name of Person...";
-    gets(name);
+    cin>>name;
     cout<<"\n Enter No of Book Issued..";
     cin>>noofbook;
 }
@@ -73,7 +73,7 @@ void AddRecord()
 {
    ofstream f1;
    Book B;
-     f1.open("Book",ios::out|ios::binary);
+     f1.open("Book.txt",ios::out|ios::binary);                 //You forgot to add any sort of file extention so that's why it was not working previously
      B.CreateBook();
      f1.write((char*)&B,sizeof(Book));
     f1.close();
@@ -86,7 +86,7 @@ void AddPerson()
 {
    ofstream f1;
    Person P;
-   f1.open("Person",ios::out|ios::binary);
+   f1.open("Person.txt",ios::out|ios::binary);                 //You forgot to add any sort of file extention so that's why it was not working previously
      P.Create();
      f1.write((char *)&P,sizeof(Person));
     f1.close();
@@ -100,7 +100,7 @@ void DisplayBook()
 Book B;
 char ch;
 ifstream f1;
-f1.open("Book",ios::in|ios::binary);
+f1.open("Book.txt",ios::in|ios::binary);                //You forgot to add any sort of file extention so that's why it was not working previously
 f1.seekg(0);
 while(f1.read((char *)&B,sizeof(B)))
 B.ShowBook();
@@ -114,7 +114,7 @@ void DisplayPerson()
 Person P;
 char ch;
 ifstream f1;
-f1.open("Person",ios::in|ios::binary);
+f1.open("Person.txt",ios::in|ios::binary);                     //You forgot to add any sort of file extention so that's why it was not working previously
 f1.seekg(0);
 while(f1.read((char *)&P,sizeof(P)))
 P.Show();
@@ -129,11 +129,11 @@ Book B;
 int r1=0;
 ifstream f1;
 ofstream f2;
-f1.open("Book",ios::in|ios::binary);
-f2.open("new",ios::out|ios::binary);
+f1.open("Book.txt",ios::in|ios::binary);                //You forgot to add any sort of file extention so that's why it was not working previously
+f2.open("new.txt",ios::out|ios::binary);
 char r[20];
 cout<<"\n Enter the book number to be modified..";
-gets(r);
+cin>>r;                                                 //As 'gets' function is removed from C++ std lib, I used 'cin'
 f1.read((char *)&B,sizeof(B));
 if(strcmpi(r,B.refno)==0)
   { r1=1;
@@ -142,8 +142,8 @@ if(strcmpi(r,B.refno)==0)
 f2.write((char *)&B,sizeof(B));
 f1.close();
 f2.close();
- remove("Book");
- rename("new","Book");
+ remove("Book.txt");                                    //You forgot to add any sort of file extention so that's why it was not working previously
+ rename("new.txt","Book.txt");
 if(r1==1)
 {
 cout<<"\n Record Is Modified.....";
@@ -162,11 +162,11 @@ Person P;
 int r1=0;
 ifstream f1;
 ofstream f2;
-f1.open("Person",ios::in|ios::binary);
-f2.open("new",ios::out|ios::binary);
+f1.open("Person.txt",ios::in|ios::binary);                    //You forgot to add any sort of file extention so that's why it was not working previously
+f2.open("new.txt",ios::out|ios::binary);
 char r[20];
 cout<<"\n Enter the card number of person to be modified..";
-gets(r);
+cin>>r;                                                 //As 'gets' function is removed from C++ std lib, I used 'cin'
 f1.read((char *)&P,sizeof(P));
 if(strcmpi(r,P.cardno)==0)
   { r1=1;
@@ -175,8 +175,8 @@ if(strcmpi(r,P.cardno)==0)
 f2.write((char *)&P,sizeof(P));
 f1.close();
 f2.close();
- remove("Person");
- rename("new","Person");
+ remove("Person.txt");
+ rename("new.txt","Person.txt");                 //You forgot to add any sort of file extention so that's why it was not working previously
 if(r1==1)
 {
 cout<<"\n Record Is Modified.....";
@@ -195,11 +195,11 @@ int f=0;
 Book B;
 ifstream f1;
 ofstream f2;
-f1.open("Book",ios::in|ios::binary);
-f2.open("new",ios::out|ios::binary);
+f1.open("Book.txt",ios::in|ios::binary);
+f2.open("new.txt",ios::out|ios::binary);                       //You forgot to add any sort of file extention so that's why it was not working previously
 char r[20];
 cout<<"\n Enter the Book Reference Number to be Deleted..";
-gets(r);
+cin>>r;                                                        //As 'gets' function is removed from C++ std lib, I used 'cin'
 while(f1)
 {
 f1.read((char *)&B,sizeof(B));
@@ -210,8 +210,8 @@ else
 }
 f1.close();
 f2.close();
-remove("Book");
-rename("new","Book");
+remove("Book.txt");
+rename("new.txt","Book.txt");                    //You forgot to add any sort of file extention so that's why it was not working previously
 if(f==1)
 {
 cout<<"\n Record is Deleted.....";
@@ -228,11 +228,11 @@ int f=0;
 Person P;
 ifstream f1;
 ofstream f2;
-f1.open("Person",ios::in|ios::binary);
-f2.open("new",ios::out|ios::binary);
+f1.open("Person.txt",ios::in|ios::binary);                     //You forgot to add any sort of file extention so that's why it was not working previously
+f2.open("new.txt",ios::out|ios::binary);
 char r[20];
 cout<<"\n Enter the Card Number of Person to be Deleted..";
-gets(r);
+cin>>r;                                                        //As 'gets' function is removed from C++ std lib, I used 'cin'
 while(f1)
 {
 f1.read((char *)&P,sizeof(P));
@@ -243,8 +243,8 @@ else
 }
 f1.close();
 f2.close();
-remove("Person");
-rename("new","Person");
+remove("Person.txt");
+rename("new.txt","Person.txt");
 if(f==1)
 {
 cout<<"\n Record is Deleted.....";
@@ -268,9 +268,9 @@ cout<<"\n Enter Person's Card no...";
 cin>>cn;
 cout<<"\n Enter Book Reference no..";
 cin>>bn;
-f1.open("Person",ios::in|ios::binary);
-f2.open("Book",ios::in|ios::binary);
-f3.open("temp",ios::out|ios::binary);
+f1.open("Person.txt",ios::in|ios::binary);                     //You forgot to add any sort of file extention so that's why it was not working previously
+f2.open("Book.txt",ios::in|ios::binary);
+f3.open("temp.txt",ios::out|ios::binary);
 while(f1.read((char*)&P,sizeof(Person)) && found==0)
 {
  if(strcmpi(P.cardno,cn)==0)
@@ -297,8 +297,8 @@ cout<<"\n Otherwise fine of Rs.1/day is charged !!!";
 	  f2.close();
 	  f3.close();
 
-	  remove("Person");
-	  rename("temp","Person");
+	  remove("Person.txt");
+	  rename("temp.txt","Person.txt");
     if(flag==0)
       cout<<"\n Book Reference number does not exist !!!";
     if(found==0)
@@ -320,9 +320,9 @@ cout<<"\n Enter Person's Card No...";
 cin>>cn;
 cout<<"\n Enter Book Reference No...";
 cin>>bn;
-f1.open("Person",ios::in|ios::binary);
-f2.open("Book",ios::in|ios::binary);
-f3.open("temp",ios::out|ios::binary);
+f1.open("Person.txt",ios::in|ios::binary);
+f2.open("Book.txt",ios::in|ios::binary);
+f3.open("temp.txt",ios::out|ios::binary);
 while(f1.read((char*)&P,sizeof(Person)))
 {
  if(strcmpi(P.cardno,cn)==0)
@@ -352,8 +352,8 @@ while(f1.read((char*)&P,sizeof(Person)))
      f1.close();
      f2.close();
      f3.close();
-     remove("Person");
-     rename("temp","Person");
+     remove("Person.txt");
+     rename("temp.txt","Person.txt");
      if(flag==0)
      cout<<"\n Book Reference no does not exist!!!";
      else
@@ -371,7 +371,7 @@ int choice;
 char ch;
 do
 {
-clrscr();
+system("cls");
 cout<<"\n !!!!!!!!!!! PUBLIC LIBRARY MANAGEMENT SYSTEM !!!!!!!!!!! \n";
 cout<<"\n********** Select the operation you would like to perform ********** ";
 cout<<"\n";
@@ -436,15 +436,15 @@ while(ch=='y'||ch=='Y');
 
 /*  MAIN FUNCTION  */
 
-void main()
+main()
 {
-clrscr();
+system("cls");                               // It is used to clear the screen clrscr() was defined in conio.h header file and it have been removed from the C++ in new versions
 ofstream f("Book");
 int ch;
 char c;
 do
 {
-clrscr();
+system("cls");
 cout<<"\n !!!!!!!!!!!!!!!!!!!! WELCOME TO PUBLIC LIBRARY !!!!!!!!!!!!!!!!!!!!  \n ";
 cout<<"---------------------------------------------------------------------";
 cout<<"\n .......Select the operation you would like to perform.......  \n ";
@@ -471,11 +471,12 @@ default:
        cout<<"\n wrong choice!!";
        break;
 }
-cout<<"\n Do you wish to work again?(y/n)";
+cout<<"\n Want to go back to main menu?(y/n)";
 cin>>c;
 }
 while(c=='y'||c=='Y');
-getch();
+system("pause");                                 //It is used to hold the screen instead of getch() function
+                                                 //As getch() function was decraled in conio.h which have been removed from C++ now
 }
 
 /* END */
