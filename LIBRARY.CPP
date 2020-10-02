@@ -18,6 +18,7 @@ public:
 	void CreateBook();
 	void ShowBook();
 };
+/*the function CreateBook used to intialize the object of Book class*/
 void Book::CreateBook()
 {
 cout<<"\n Enter Book Reference Number..";
@@ -29,7 +30,7 @@ gets(author);
 cout<<"\n Enter Category..";
 gets(category);
 }
-
+/*the function ShowBook is used to display details of object of Book class*/
 void Book::ShowBook()
 {
 cout<<"\n Book Number - "<<refno;
@@ -49,7 +50,7 @@ public:
     char cardno[10];
     int noofbook;
 };
-
+/*the function Create is used to initialize the public elements of inherated class also    */
 void Person::Create()
 {
     cout<<"\n Enter Card No...";
